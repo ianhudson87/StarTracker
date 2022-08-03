@@ -23,6 +23,7 @@ public class StarTracker : MonoBehaviour
         // leg = 
 
         PolarAlign();
+        Reset();
     }
 
     void Update() {
@@ -38,6 +39,10 @@ public class StarTracker : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.T)) {
             StartTrack();
+        }
+
+        if(Input.GetKeyDown(KeyCode.R)) {
+            Reset();
         }
     }
 
@@ -94,6 +99,15 @@ public class StarTracker : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    void Reset() {
+        StopCoroutine("StartTrackCoroutine");
+
+        SetScrewHeight(0f); 
+
+        cameraBase.transform.RotateAround(hinge.transform.position, -transform.up, -cameraBaseRot);
+        cameraBaseRot = 0;
     }
 
 }

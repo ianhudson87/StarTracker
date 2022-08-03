@@ -9,6 +9,7 @@ public class PlayerController : MassiveObject
     [SerializeField] CharacterController charController;
     [SerializeField] float sensitivity;
     [SerializeField] public GameObject ghost;
+    [SerializeField] Camera starTrackerCam;
     float verticalLookRotation;
     float horizontalLookRotation;
     // Vector3 velocity = new Vector3();
@@ -16,6 +17,9 @@ public class PlayerController : MassiveObject
     void Start() {
         ghost.transform.parent = null;
         ghost.transform.position = this.transform.position;
+
+        cam.enabled = true;
+        starTrackerCam.enabled = false;
     }
 
     void Update() {
@@ -28,10 +32,20 @@ public class PlayerController : MassiveObject
         }
         
         Look();
+        Move();
 
         // velocity += transform.parent.
         // charController.Move(velocity * Time.deltaTime);
         // transform.position += velocity * Time.deltaTime;
+
+        if(Input.GetKeyDown(KeyCode.C)) {
+            cam.enabled = !cam.enabled;
+            starTrackerCam.enabled = !starTrackerCam.enabled;
+        }
+    }
+
+    void Move() {
+
     }
 
     private void LateUpdate() {
