@@ -60,6 +60,7 @@ public class StarTracker : MonoBehaviour
     }
 
     void PolarAlign() {
+        Debug.Log("Align!");
         float closestDist = -1f;
         foreach(CelestialBody cb in FindObjectsOfType<CelestialBody>()) {
             float dist = (cb.transform.position - transform.position).magnitude;
@@ -71,13 +72,20 @@ public class StarTracker : MonoBehaviour
 
         Quaternion q = Quaternion.identity;
         if(closestCB.GetComponent<MassiveObject>().angularVelocity > 0) {
-            q = Quaternion.FromToRotation(transform.up, closestCB.transform.up);
+            transform.up = closestCB.transform.up;
+            // q = Quaternion.FromToRotation(transform.up, closestCB.transform.up);
         }
         else{
-            q = Quaternion.FromToRotation(transform.up, -closestCB.transform.up);
+            transform.up = -closestCB.transform.up;
+            // q = Quaternion.FromToRotation(transform.up, -closestCB.transform.up);
         }
+
+        Debug.Log(closestCB);
         
-        transform.rotation *= q;
+        // transform.rotation *= q;
+
+        Debug.Log("this one" + transform.up);
+        Debug.Log("other one" + closestCB.transform.up);
         // Quaternion.FromToRotation()
     }
 
